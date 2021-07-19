@@ -18,7 +18,7 @@ defmodule AWSSecretsManagerConfigProvider do
     Enum.map(config, &eval_secret(&1, config))
   end
 
-  defp eval_secret({:ssm_secret, path, key}, _config) do
+  defp eval_secret({:aws_secret, path, key}, _config) do
     fetch_parameter(path, key)
   end
 
