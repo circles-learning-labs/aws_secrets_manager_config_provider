@@ -1,9 +1,9 @@
-defmodule AwsSsmConfigProvider.MixProject do
+defmodule AwsSecretsManagerConfigProvider.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :aws_ssm_config_provider,
+      app: :aws_secrets_manager_config_provider,
       version: "0.1.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,

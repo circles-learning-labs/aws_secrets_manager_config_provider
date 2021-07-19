@@ -1,15 +1,15 @@
-defmodule AWSSSMConfigProvider do
+defmodule AWSSecretsManagerConfigProvider do
   @behaviour Config.Provider
 
   @moduledoc """
-  Documentation for `AwsSsmConfigProvider`.
+  Documentation for `AwsSecretsManagerConfigProvider`.
   """
 
   def init(_), do: :ok
 
   def load(config, _) do
     {:ok, _} = Application.ensure_all_started(:hackney)
-    {:ok, _} = Application.ensure_all_started(:ex_aws_ssm)
+    {:ok, _} = Application.ensure_all_started(:ex_aws_secrets_manager)
 
     Config.Reader.merge(config, resolve_secrets(config))
   end
