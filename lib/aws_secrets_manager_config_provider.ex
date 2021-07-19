@@ -9,7 +9,7 @@ defmodule AWSSecretsManagerConfigProvider do
 
   def load(config, _) do
     {:ok, _} = Application.ensure_all_started(:hackney)
-    {:ok, _} = Application.ensure_all_started(:ex_aws_secrets_manager)
+    {:ok, _} = Application.ensure_all_started(:ex_aws_secretsmanager)
 
     Config.Reader.merge(config, resolve_secrets(config))
   end
