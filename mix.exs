@@ -20,7 +20,7 @@ defmodule AwsSsmConfigProvider.MixProject do
   defp deps do
     [
       {:ex_aws, "~> 2.1"},
-      {:ex_aws_ssm, "~> 2.0"},
+      {:ex_aws_secretsmanager, "~> 2.0"},
       {:jason, "~> 1.2"}
     ]
   end

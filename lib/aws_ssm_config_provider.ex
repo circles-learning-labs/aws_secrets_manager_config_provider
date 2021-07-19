@@ -31,7 +31,7 @@ defmodule AWSSSMConfigProvider do
   defp eval_secret(other, _config), do: other
 
   defp fetch_parameter(path, key) do
-    request = ExAws.SSM.get_parameter(path, with_decryption: true)
+    request = ExAws.SecretsManager.get_secret_value(path)
 
     with {:ok, %{"SecretString" => json}} <- ExAws.request(request),
          {:ok, result} <- Jason.decode(json) do
