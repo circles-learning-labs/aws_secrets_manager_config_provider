@@ -33,7 +33,7 @@ defmodule AWSSSMConfigProvider do
   defp fetch_parameter(path, key) do
     request = ExAws.SSM.get_parameter(path, with_decryption: true)
 
-    with {:ok, %{"SecretString" => json}} <- ExAws.request!(request),
+    with {:ok, %{"SecretString" => json}} <- ExAws.request(request),
          {:ok, result} <- Jason.decode(json) do
       Map.get(result, key)
     else
