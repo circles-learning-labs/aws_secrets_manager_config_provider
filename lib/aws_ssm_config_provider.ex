@@ -18,8 +18,8 @@ defmodule AWSSSMConfigProvider do
     Enum.map(config, &eval_secret(&1, config))
   end
 
-  defp eval_secret({:ssm_secret, path}, _config) do
-    fetch_parameter(path)
+  defp eval_secret({:ssm_secret, path, name}, _config) do
+    fetch_parameter(path, name)
   end
 
   defp eval_secret({key, val}, config) do
@@ -30,13 +30,15 @@ defmodule AWSSSMConfigProvider do
 
   defp eval_secret(other, _config), do: other
 
-  defp fetch_parameter(path) do
+  defp fetch_parameter(path, name) do
     path
     |> ExAws.SSM.get_parameter(with_decryption: true)
     |> ExAws.request!()
     |> case do
-      %{"Parameter" => %{"Value" => secret}} ->
-        secret
+      %{"SecretString" => json} ->
+        json
+        |> Jason.decode!()
+        |> Map.get(name)
 
       error ->
         raise ArgumentError, "secret at #{path} returned #{inspect(error)}"
