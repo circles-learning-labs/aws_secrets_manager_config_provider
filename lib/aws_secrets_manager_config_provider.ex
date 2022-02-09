@@ -28,6 +28,9 @@ defmodule AWSSecretsManagerConfigProvider do
 
   defp eval_secret(val, config) when is_list(val), do: Enum.map(val, &eval_secret(&1, config))
 
+  defp eval_secret(val, config) when is_map(val),
+    do: Enum.map(val, &eval_secret(&1, config)) |> Enum.into(%{})
+
   defp eval_secret(other, _config), do: other
 
   defp fetch_parameter(path, key) do
